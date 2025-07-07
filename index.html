@@ -2,114 +2,125 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CustomMusic | Official Artist Page</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Music | M3HUL</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/scrollreveal"></script>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #0e0e0e;
-      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      background: #0d0d0d;
+      color: #f0f0f0;
       scroll-behavior: smooth;
-    }
-    header, section {
-      padding: 80px 20px;
-      max-width: 1000px;
-      margin: auto;
     }
     .hero {
       height: 100vh;
-      background: linear-gradient(135deg, #1f1f1f, #000);
+      background: url('https://images.unsplash.com/photo-1524386174948-1aef29f6b762?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
+      padding: 0 20px;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     }
     .hero h1 {
-      font-size: 3.2em;
+      font-size: 4rem;
       margin: 0;
-      letter-spacing: 1px;
     }
     .hero p {
-      font-size: 1.2em;
-      margin-top: 15px;
-      color: #cccccc;
+      font-size: 1.2rem;
+      margin: 20px 0;
+    }
+    .hero a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      border: 2px solid #ff4d4d;
+      color: #ff4d4d;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .hero a:hover {
+      background: #ff4d4d;
+      color: #000;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
     }
     .section-title {
-      font-size: 2em;
+      font-size: 2.5rem;
       margin-bottom: 20px;
-      text-align: center;
-      color: #ffffff;
+      color: #ff4d4d;
     }
-    .video-container {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      border-radius: 12px;
-    }
-    .video-container iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+    iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 77, 77, 0.3);
     }
     .contact {
-      text-align: center;
-      margin-top: 40px;
+      background: #111;
+      padding: 40px;
+      border-top: 2px solid #ff4d4d;
+    }
+    .contact h2 {
+      margin-bottom: 20px;
     }
     .contact a {
-      color: #00ffff;
+      color: #ff4d4d;
       font-weight: 600;
+      font-size: 1.2rem;
       text-decoration: none;
-      font-size: 1.2em;
     }
     footer {
+      background: #000;
       text-align: center;
-      padding: 30px 20px;
-      font-size: 0.9em;
-      color: #666666;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #777;
     }
   </style>
 </head>
 <body>
 
-  <!-- Welcome / Hero -->
   <div class="hero">
     <h1>M3HUL</h1>
-    <p>Official Artist Page | CustomMusic</p>
+    <p>Producer • Sound Architect • Dream Builder</p>
+    <a href="#latest">Watch Latest Video</a>
   </div>
 
-  <!-- About Section -->
   <section id="about">
     <h2 class="section-title">About the Artist</h2>
-    <p style="text-align:center; max-width: 700px; margin:auto;">
-      M3HUL is an independent producer crafting deep, ambient R&B beats that echo with emotion. Known for fusing cinematic soundscapes with dark melodic textures, his sound blurs the line between rhythm and feeling.
-    </p>
+    <p>M3HUL is a genre-blending music producer crafting atmospheric, hypnotic, and emotionally driven soundscapes. With a focus on late-night R&B vibes, trap fusion, and ambient textures, M3HUL delivers haunting beats that linger in your soul.</p>
   </section>
 
-  <!-- Latest Video -->
-  <section id="video">
+  <section id="latest">
     <h2 class="section-title">Latest Video</h2>
-    <div class="video-container">
-      <iframe src="https://www.youtube.com/embed/4uDuQELNh_c" frameborder="0" allowfullscreen></iframe>
-    </div>
+    <iframe src="https://www.youtube.com/embed/4uDuQELNh_c" allowfullscreen></iframe>
   </section>
 
-  <!-- Contact -->
-  <section id="contact">
-    <h2 class="section-title">Contact</h2>
-    <div class="contact">
-      <p>For collaborations or inquiries:</p>
-      <a href="mailto:admin@custommusic.dpdns.org">admin@custommusic.dpdns.org</a>
-    </div>
+  <section class="contact" id="contact">
+    <h2>Contact</h2>
+    <p>For inquiries, collabs or custom beats:</p>
+    <a href="mailto:help@custommusic.dpdns.org">help@custommusic.dpdns.org</a>
   </section>
 
-  <!-- Footer -->
   <footer>
-    &copy; 2025 CustomMusic. All rights reserved.
+    &copy; 2025 Custom Music. All rights reserved.
   </footer>
 
 </body>
 </html>
+
