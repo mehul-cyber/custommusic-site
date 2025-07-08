@@ -159,10 +159,9 @@
   <footer>
     &copy; 2025 CustomMusic. All rights reserved.
   </footer>
-
-  <script>
-  
-  const BACKEND_URL = "https://0bc9cf36-8461-473c-8593-f60fa40b1e22-00-2i34xdkzucn62.pike.replit.dev"; // 👈 Your Replit link
+<script>
+  const messages = [];
+  let username = "Guest";
 
   document.getElementById("subscribe-form").addEventListener("submit", async function(e) {
     e.preventDefault();
@@ -177,9 +176,9 @@
     const data = await res.json();
 
     if (data.unlock) {
+      username = prompt("🎤 Enter your name for the chatroom:") || "Guest";
       document.getElementById("response-message").textContent = "🎉 Welcome!";
       document.getElementById("chat-box").style.display = "block";
-      fetchMessages(); // Load chat
     } else {
       document.getElementById("response-message").textContent = "✅ Submitted!";
     }
@@ -187,23 +186,21 @@
 
   async function sendMessage() {
     const input = document.getElementById("chat-input");
-    const msg = input.value.trim();
-    if (!msg) return;
+    const text = input.value.trim();
+    if (!text) return;
 
-    await fetch(`${BACKEND_URL}/chat`, {
+    await fetch("https://0bc9cf36-8461-473c-8593-f60fa40b1e22-00-2i34xdkzucn62.pike.replit.dev/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: msg })
+      body: JSON.stringify({ text, user: username })
     });
 
+    messages.push({ user: username, text });
+    updateMessages();
     input.value = "";
-    fetchMessages();
   }
 
-  async function fetchMessages() {
-    const res = await fetch(`${BACKEND_URL}/chat`);
-    const messages = await res.json();
-
+  function updateMessages() {
     const container = document.getElementById("messages");
     container.innerHTML = "";
     messages.forEach(msg => {
@@ -213,16 +210,9 @@
       container.appendChild(div);
     });
   }
+</script>
 
-  // Refresh messages every 5 seconds
-  setInterval(() => {
-    if (document.getElementById("chat-box").style.display === "block") {
-      fetchMessages();
-    }
-  }, 5000);
-
-
-  </script>
+ 
 
 </body>
 </html>
