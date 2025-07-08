@@ -1,3 +1,5 @@
+<!-- 🔥 Your updated code with chatroom support -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/scrollreveal"></script>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Montserrat', sans-serif;
@@ -29,14 +29,8 @@
       color: #fff;
       text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     }
-    .hero h1 {
-      font-size: 4rem;
-      margin: 0;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      margin: 20px 0;
-    }
+    .hero h1 { font-size: 4rem; margin: 0; }
+    .hero p { font-size: 1.2rem; margin: 20px 0; }
     .hero a {
       display: inline-block;
       margin-top: 20px;
@@ -48,10 +42,8 @@
       font-weight: 600;
       transition: all 0.3s ease;
     }
-    .hero a:hover {
-      background: #ff4d4d;
-      color: #000;
-    }
+    .hero a:hover { background: #ff4d4d; color: #000; }
+
     section {
       padding: 60px 20px;
       max-width: 900px;
@@ -75,9 +67,7 @@
       padding: 40px;
       border-top: 2px solid #ff4d4d;
     }
-    .contact h2 {
-      margin-bottom: 20px;
-    }
+    .contact h2 { margin-bottom: 20px; }
     .contact a {
       color: #ff4d4d;
       font-weight: 600;
@@ -91,6 +81,37 @@
       font-size: 0.9rem;
       color: #777;
     }
+
+    #chat-box {
+      display: none;
+      background: #1c1c1c;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    .message {
+      margin: 10px 0;
+      padding: 10px;
+      background: #2d2d2d;
+      border-radius: 5px;
+      text-align: left;
+    }
+    #messages {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+    }
+    #subscribe-form input {
+      width: 300px;
+    }
+    #chat-input { width: 80%; }
   </style>
 </head>
 <body>
@@ -111,6 +132,24 @@
     <iframe src="https://www.youtube.com/embed/4uDuQELNh_c" allowfullscreen></iframe>
   </section>
 
+  <!-- 🔔 Subscribe form -->
+  <section id="subscribe">
+    <h2 class="section-title">Subscribe to Newsletter</h2>
+    <form id="subscribe-form">
+      <input type="email" id="email" placeholder="Enter your email" required />
+      <button type="submit">Subscribe</button>
+    </form>
+    <p id="response-message"></p>
+  </section>
+
+  <!-- 🔐 Hidden Chat Box -->
+  <section id="chat-box">
+    <h2 class="section-title">Secret Chatroom</h2>
+    <div id="messages"></div>
+    <input type="text" id="chat-input" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+  </section>
+
   <section class="contact" id="contact">
     <h2>Contact</h2>
     <p>For inquiries, collabs or custom beats:</p>
@@ -121,6 +160,49 @@
     &copy; 2025 CustomMusic. All rights reserved.
   </footer>
 
+  <script>
+    const messages = [];
+
+    document.getElementById("subscribe-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+
+      const res = await fetch("/api/check-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await res.json();
+
+      if (data.unlock) {
+        document.getElementById("response-message").textContent = "🎉 Welcome!";
+        document.getElementById("chat-box").style.display = "block";
+      } else {
+        document.getElementById("response-message").textContent = "✅ Submitted!";
+      }
+    });
+
+    function sendMessage() {
+      const input = document.getElementById("chat-input");
+      const msg = input.value.trim();
+      if (!msg) return;
+      messages.push({ user: "You", text: msg });
+      updateMessages();
+      input.value = "";
+    }
+
+    function updateMessages() {
+      const container = document.getElementById("messages");
+      container.innerHTML = "";
+      messages.forEach(msg => {
+        const div = document.createElement("div");
+        div.className = "message";
+        div.innerHTML = `<strong>${msg.user}:</strong> ${msg.text}`;
+        container.appendChild(div);
+      });
+    }
+  </script>
+
 </body>
 </html>
-
