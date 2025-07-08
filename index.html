@@ -161,47 +161,63 @@
   </footer>
 
   <script>
-    const messages = [];
+  
+  const messages = [];
 
-    document.getElementById("subscribe-form").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
+  const CHAT_API = "https://0bc9cf36-8461-473c-8593-f60fa40b1e22-00-2i34xdkzucn62.pike.replit.dev";
 
-      const res = await fetch("/api/check-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email })
-      });
+  document.getElementById("subscribe-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
 
-      const data = await res.json();
-
-      if (data.unlock) {
-        document.getElementById("response-message").textContent = "🎉 Welcome!";
-        document.getElementById("chat-box").style.display = "block";
-      } else {
-        document.getElementById("response-message").textContent = "✅ Submitted!";
-      }
+    const res = await fetch("/api/check-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email })
     });
 
-    function sendMessage() {
-      const input = document.getElementById("chat-input");
-      const msg = input.value.trim();
-      if (!msg) return;
-      messages.push({ user: "You", text: msg });
-      updateMessages();
-      input.value = "";
-    }
+    const data = await res.json();
 
-    function updateMessages() {
-      const container = document.getElementById("messages");
-      container.innerHTML = "";
-      messages.forEach(msg => {
-        const div = document.createElement("div");
-        div.className = "message";
-        div.innerHTML = `<strong>${msg.user}:</strong> ${msg.text}`;
-        container.appendChild(div);
-      });
+    if (data.unlock) {
+      document.getElementById("response-message").textContent = "🎉 Welcome!";
+      document.getElementById("chat-box").style.display = "block";
+      loadMessages(); // load chat history
+      setInterval(loadMessages, 3000); // 🔁 refresh chat every 3 sec
+    } else {
+      document.getElementById("response-message").textContent = "✅ Submitted!";
     }
+  });
+
+  async function sendMessage() {
+    const input = document.getElementById("chat-input");
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    await fetch(`${CHAT_API}/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: msg })
+    });
+
+    input.value = "";
+    loadMessages();
+  }
+
+  async function loadMessages() {
+    const res = await fetch(`${CHAT_API}/chat`);
+    const data = await res.json();
+    const container = document.getElementById("messages");
+    container.innerHTML = "";
+
+    data.forEach(msg => {
+      const div = document.createElement("div");
+      div.className = "message";
+      div.innerHTML = `<strong>${msg.user}:</strong> ${msg.text}`;
+      container.appendChild(div);
+    });
+  }
+
+
   </script>
 
 </body>
