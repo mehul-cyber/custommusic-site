@@ -160,16 +160,9 @@
     &copy; 2025 CustomMusic. All rights reserved.
   </footer>
 <script>
-   let messages = [];
-  let username = "Guest";
+    const messages = [];
 
-  // ✅ Step 1: Remember username using localStorage
-  if (localStorage.getItem("username")) {
-    username = localStorage.getItem("username");
-  }
-
-  // ✅ Step 2: Newsletter form submission
-  document.getElementById("subscribe-form").addEventListener("submit", async function (e) {
+  document.getElementById("subscribe-form").addEventListener("submit", async function(e) {
     e.preventDefault();
     const email = document.getElementById("email").value;
 
@@ -182,61 +175,40 @@
     const data = await res.json();
 
     if (data.unlock) {
-      if (!localStorage.getItem("username")) {
-        username = prompt("🎤 Enter your display name:") || "Guest";
-        localStorage.setItem("username", username);
-      }
-
-      document.getElementById("response-message").textContent = `🎉 Welcome, ${username}!`;
+      document.getElementById("response-message").textContent = "🎉 Welcome!";
       document.getElementById("chat-box").style.display = "block";
 
-      await loadMessages();
-      setInterval(loadMessages, 3000); // 🔁 auto-refresh every 3 seconds
+      // Ask for user's name
+      const user = prompt("Enter your name:") || "Guest";
+      window.chatUser = user;
     } else {
       document.getElementById("response-message").textContent = "✅ Submitted!";
     }
   });
 
-  // 🔁 Step 3: Load messages from Replit
-  async function loadMessages() {
-    try {
-      const res = await fetch("https://0bc9cf36-8461-473c-8593-f60fa40b1e22-00-2i34xdkzucn62.pike.replit.dev/chat");
-      const data = await res.json();
-      messages = data;
-      updateMessages();
-    } catch (err) {
-      console.error("❌ Failed to load messages:", err);
-    }
-  }
-
-  // 💬 Step 4: Send message to server
   function sendMessage() {
     const input = document.getElementById("chat-input");
     const msg = input.value.trim();
     if (!msg) return;
 
-    fetch("https://0bc9cf36-8461-473c-8593-f60fa40b1e22-00-2i34xdkzucn62.pike.replit.dev/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user: username, text: msg })
-    }).then(() => {
-      input.value = "";
-      loadMessages();
-    });
+    const user = window.chatUser || "Guest";
+    messages.push({ user, text: msg });
+    updateMessages();
+    input.value = "";
   }
 
-  // 🎨 Step 5: Show messages in chat box
   function updateMessages() {
     const container = document.getElementById("messages");
     container.innerHTML = "";
     messages.forEach(msg => {
       const div = document.createElement("div");
       div.className = "message";
-      div.innerHTML = `<strong>${msg.user || "Guest"}:</strong> ${msg.text}`;
+      div.innerHTML = `<strong>${msg.user}:</strong> ${msg.text}`;
       container.appendChild(div);
     });
-    container.scrollTop = container.scrollHeight;
   }
+    
+    
 </script>
 
  
