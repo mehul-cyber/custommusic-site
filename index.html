@@ -162,9 +162,7 @@
 
   <script>
   
-  const messages = [];
-
-  const CHAT_API = "https://0bc9cf36-8461-473c-8593-f60fa40b1e22-00-2i34xdkzucn62.pike.replit.dev";
+  const BACKEND_URL = "https://0bc9cf36-8461-473c-8593-f60fa40b1e22-00-2i34xdkzucn62.pike.replit.dev"; // 👈 Your Replit link
 
   document.getElementById("subscribe-form").addEventListener("submit", async function(e) {
     e.preventDefault();
@@ -181,8 +179,7 @@
     if (data.unlock) {
       document.getElementById("response-message").textContent = "🎉 Welcome!";
       document.getElementById("chat-box").style.display = "block";
-      loadMessages(); // load chat history
-      setInterval(loadMessages, 3000); // 🔁 refresh chat every 3 sec
+      fetchMessages(); // Load chat
     } else {
       document.getElementById("response-message").textContent = "✅ Submitted!";
     }
@@ -193,29 +190,36 @@
     const msg = input.value.trim();
     if (!msg) return;
 
-    await fetch(`${CHAT_API}/chat`, {
+    await fetch(`${BACKEND_URL}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: msg })
     });
 
     input.value = "";
-    loadMessages();
+    fetchMessages();
   }
 
-  async function loadMessages() {
-    const res = await fetch(`${CHAT_API}/chat`);
-    const data = await res.json();
+  async function fetchMessages() {
+    const res = await fetch(`${BACKEND_URL}/chat`);
+    const messages = await res.json();
+
     const container = document.getElementById("messages");
     container.innerHTML = "";
-
-    data.forEach(msg => {
+    messages.forEach(msg => {
       const div = document.createElement("div");
       div.className = "message";
       div.innerHTML = `<strong>${msg.user}:</strong> ${msg.text}`;
       container.appendChild(div);
     });
   }
+
+  // Refresh messages every 5 seconds
+  setInterval(() => {
+    if (document.getElementById("chat-box").style.display === "block") {
+      fetchMessages();
+    }
+  }, 5000);
 
 
   </script>
