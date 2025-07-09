@@ -1,39 +1,39 @@
-<!-- 🔥 Your updated code with chatroom support -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Custom Music by M3HUL — Producer of atmospheric, emotional R&B and trap beats.">
+  <meta name="keywords" content="M3HUL, Custom Music, R&B Beats, Trap Music, Chatroom, Dark R&B">
+  <meta name="author" content="M3HUL">
   <title>Custom Music | M3HUL</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/scrollreveal"></script>
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
       font-family: 'Montserrat', sans-serif;
       background: #0d0d0d;
       color: #f0f0f0;
       scroll-behavior: smooth;
+      line-height: 1.6;
     }
+
     .hero {
-      height: 100vh;
+      min-height: 100vh;
       background: url('https://images.unsplash.com/photo-1524386174948-1aef29f6b762?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 0 20px;
       color: #fff;
       text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      padding: 2rem;
     }
-    .hero h1 { font-size: 4rem; margin: 0; }
-    .hero p { font-size: 1.2rem; margin: 20px 0; }
+    .hero h1 { font-size: 3rem; }
+    .hero p { font-size: 1.2rem; margin: 1rem 0; }
     .hero a {
-      display: inline-block;
-      margin-top: 20px;
+      margin-top: 1rem;
       padding: 12px 24px;
       border: 2px solid #ff4d4d;
       color: #ff4d4d;
@@ -42,76 +42,88 @@
       font-weight: 600;
       transition: all 0.3s ease;
     }
-    .hero a:hover { background: #ff4d4d; color: #000; }
+    .hero a:hover {
+      background: #ff4d4d;
+      color: #000;
+    }
 
     section {
-      padding: 60px 20px;
+      padding: 2rem 1rem;
       max-width: 900px;
       margin: auto;
-      text-align: center;
     }
+
     .section-title {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
+      font-size: 2rem;
+      margin-bottom: 1rem;
       color: #ff4d4d;
     }
+
     iframe {
       width: 100%;
-      height: 400px;
+      height: 350px;
       border: none;
       border-radius: 10px;
-      box-shadow: 0 0 20px rgba(255, 77, 77, 0.3);
+      box-shadow: 0 0 15px rgba(255, 77, 77, 0.2);
     }
-    .contact {
+
+    .contact, #chat-box {
+      background: #1a1a1a;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    #subscribe-form input, #chat-input {
+      padding: 10px;
+      margin: 0.5rem 0;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #subscribe-form button, #send-btn {
+      padding: 10px 20px;
+      border: none;
+      background: #ff4d4d;
+      color: #fff;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #subscribe-form button:hover, #send-btn:hover {
+      background: #e64040;
+    }
+
+    #messages {
+      max-height: 300px;
+      overflow-y: auto;
       background: #111;
-      padding: 40px;
-      border-top: 2px solid #ff4d4d;
+      padding: 1rem;
+      border-radius: 5px;
+      margin-bottom: 1rem;
     }
-    .contact h2 { margin-bottom: 20px; }
-    .contact a {
-      color: #ff4d4d;
-      font-weight: 600;
-      font-size: 1.2rem;
-      text-decoration: none;
+
+    .message {
+      background: #2c2c2c;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 4px;
     }
+
     footer {
       background: #000;
       text-align: center;
-      padding: 20px;
+      padding: 1rem;
       font-size: 0.9rem;
       color: #777;
     }
 
-    #chat-box {
-      display: none;
-      background: #1c1c1c;
-      border: 1px solid #333;
-      border-radius: 8px;
-      padding: 20px;
-      margin-top: 30px;
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.2rem; }
+      iframe { height: 250px; }
     }
-    .message {
-      margin: 10px 0;
-      padding: 10px;
-      background: #2d2d2d;
-      border-radius: 5px;
-      text-align: left;
-    }
-    #messages {
-      max-height: 300px;
-      overflow-y: auto;
-      margin-bottom: 10px;
-    }
-    input, button {
-      padding: 10px;
-      margin: 5px;
-      border: none;
-      border-radius: 5px;
-    }
-    #subscribe-form input {
-      width: 300px;
-    }
-    #chat-input { width: 80%; }
   </style>
 </head>
 <body>
@@ -132,7 +144,7 @@
     <iframe src="https://www.youtube.com/embed/4uDuQELNh_c" allowfullscreen></iframe>
   </section>
 
-  <!-- 🔔 Subscribe form -->
+  <!-- Newsletter -->
   <section id="subscribe">
     <h2 class="section-title">Subscribe to Newsletter</h2>
     <form id="subscribe-form">
@@ -142,15 +154,15 @@
     <p id="response-message"></p>
   </section>
 
-  <!-- 🔐 Hidden Chat Box -->
-  <section id="chat-box">
+  <!-- Secret Chatroom -->
+  <section id="chat-box" style="display:none;">
     <h2 class="section-title">Secret Chatroom</h2>
     <div id="messages"></div>
-    <input type="text" id="chat-input" placeholder="Type a message..." />
-    <button onclick="sendMessage()">Send</button>
+    <input type="text" id="chat-input" placeholder="Type your message..." />
+    <button id="send-btn">Send</button>
   </section>
 
-  <section class="contact" id="contact">
+  <section class="contact">
     <h2>Contact</h2>
     <p>For inquiries, collabs or custom beats:</p>
     <a href="mailto:help@custommusic.dpdns.org">help@custommusic.dpdns.org</a>
@@ -159,68 +171,74 @@
   <footer>
     &copy; 2025 CustomMusic. All rights reserved.
   </footer>
-<script>
 
-  const API = "https://0bc9cf36-8461-473c-8593-f60fa40b1e22-00-2i34xdkzucn62.pike.replit.dev";
-  let chatUser = "";
+  <script>
+    const API = "https://0bc9cf36-8461-473c-8593-f60fa40b1e22-00-2i34xdkzucn62.pike.replit.dev";
+    let chatUser = "";
 
-  document.getElementById("subscribe-form").addEventListener("submit", async function(e) {
-    e.preventDefault();
-    const email = document.getElementById("email").value;
+    document.getElementById("subscribe-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
 
-    const res = await fetch("/api/check-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email })
+      const res = await fetch("/api/check-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+
+      const data = await res.json();
+
+      if (data.unlock) {
+        chatUser = prompt("Enter your name:") || "Guest";
+        document.getElementById("chat-box").style.display = "block";
+        loadMessages();
+        setInterval(loadMessages, 5000);
+      } else {
+        document.getElementById("response-message").textContent = "✅ Submitted!";
+      }
     });
 
-    const data = await res.json();
-
-    if (data.unlock) {
-      chatUser = prompt("Enter your name:") || "Guest";
-      document.getElementById("chat-box").style.display = "block";
-      loadMessages();
-    } else {
-      document.getElementById("response-message").textContent = "✅ Submitted!";
+    async function loadMessages() {
+      const res = await fetch(`${API}/chat`);
+      const msgs = await res.json();
+      updateMessages(msgs);
     }
-  });
 
-  async function loadMessages() {
-    const res = await fetch(`${API}/chat`);
-    const msgs = await res.json();
-    updateMessages(msgs);
-  }
+    function updateMessages(msgs) {
+      const container = document.getElementById("messages");
+      container.innerHTML = "";
+      msgs.forEach(msg => {
+        const div = document.createElement("div");
+        div.className = "message";
+        div.innerHTML = `<strong>${msg.user}:</strong> ${msg.text}`;
+        container.appendChild(div);
+      });
+      container.scrollTop = container.scrollHeight;
+    }
 
-  function updateMessages(msgs) {
-    const container = document.getElementById("messages");
-    container.innerHTML = "";
-    msgs.forEach(msg => {
-      const div = document.createElement("div");
-      div.className = "message";
-      div.innerHTML = `<strong>${msg.user}:</strong> ${msg.text}`;
-      container.appendChild(div);
-    });
-  }
-
-  async function sendMessage() {
-    const input = document.getElementById("chat-input");
-    const msg = input.value.trim();
-    if (!msg || !chatUser) return;
-
-    await fetch(`${API}/chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ user: chatUser, text: msg })
+    document.getElementById("send-btn").addEventListener("click", sendMessage);
+    document.getElementById("chat-input").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        sendMessage();
+      }
     });
 
-    input.value = "";
-    loadMessages(); // Refresh chat
-  }
+    async function sendMessage() {
+      const input = document.getElementById("chat-input");
+      const msg = input.value.trim();
+      if (!msg || !chatUser) return;
 
-    
-</script>
+      await fetch(`${API}/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user: chatUser, text: msg })
+      });
 
- 
+      input.value = "";
+      loadMessages();
+    }
+  </script>
 
 </body>
 </html>
